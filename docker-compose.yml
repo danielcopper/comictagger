@@ -1,0 +1,19 @@
+services:
+  comictagger:
+    build: .
+    container_name: comictagger
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+      - TITLE=ComicTagger       # Browser-Tab-Titel :contentReference[oaicite:1]{index=1}
+      - NO_DECOR=true           # Fensterrahmen ausblenden :contentReference[oaicite:2]{index=2}
+      - GUIAUTOSTART=true
+      # - NO_FULL=true         # falls du das Maximieren aus autostart nehmen willst
+    ports:
+      - "3000:3000"             # HTTP noVNC
+      - "3001:3001"             # HTTPS noVNC (optional)
+    volumes:
+      - ./temp/config:/config
+      - ./temp/comics:/comics
+    restart: unless-stopped
